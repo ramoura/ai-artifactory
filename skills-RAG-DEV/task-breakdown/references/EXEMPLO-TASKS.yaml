@@ -1,0 +1,72 @@
+# EXEMPLO ILUSTRATIVO — NÃO COPIAR COMO ESPECIFICAÇÃO REAL
+schema_version: 1
+story:
+  slug: "cadastro-despesas"
+  planning_contract: "tasks/cadastro-despesas/planning-contract.yaml"
+  plan: "tasks/cadastro-despesas/plan.md"
+  planning_schema_version: 2
+  tests: "tasks/cadastro-despesas/tests.md"
+  status_at_breakdown: "ready"
+coordination:
+  max_parallel_implementers: 3
+  dependency_gate: "done_and_integrated"
+  registry_writer: "orchestrator_only"
+  review_round_limit: 3
+tasks:
+  - id: "TASK-001"
+    revision: 1
+    title: "Estabilizar contrato de despesa"
+    kind: "contract"
+    status: "pending"
+    specification: "tasks/cadastro-despesas/tasks/TASK-001.md"
+    requirement_ids: ["REQ-001"]
+    acceptance_criteria_ids: ["AC-001"]
+    component_ids: ["CMP-001"]
+    verification_ids: ["VER-001"]
+    owned_verification_ids: []
+    decision_ids: []
+    depends_on: []
+    contract_preconditions: []
+    scope:
+      allowed_paths: ["src/main/.../dto/"]
+      avoid_paths: []
+      shared_risks: ["DTO de despesa compartilhado"]
+    readiness_notes: "Não modificar contrato sem revisar consumidores"
+  - id: "TASK-002"
+    revision: 1
+    title: "Persistência de despesas"
+    kind: "implementation"
+    status: "pending"
+    specification: "tasks/cadastro-despesas/tasks/TASK-002.md"
+    requirement_ids: ["REQ-001"]
+    acceptance_criteria_ids: ["AC-002"]
+    component_ids: ["CMP-001"]
+    verification_ids: ["VER-002"]
+    owned_verification_ids: ["VER-002"]
+    decision_ids: []
+    depends_on: ["TASK-001"]
+    contract_preconditions: ["Modelo de despesa estabilizado"]
+    scope:
+      allowed_paths: ["src/main/.../repository/"]
+      avoid_paths: ["src/main/.../dto/"]
+      shared_risks: []
+    readiness_notes: "Código de TASK-001 integrado e validado"
+  - id: "TASK-003"
+    revision: 1
+    title: "Endpoint HTTP de despesas"
+    kind: "implementation"
+    status: "pending"
+    specification: "tasks/cadastro-despesas/tasks/TASK-003.md"
+    requirement_ids: ["REQ-001"]
+    acceptance_criteria_ids: ["AC-001", "AC-002"]
+    component_ids: ["CMP-002"]
+    verification_ids: ["VER-001", "VER-002"]
+    owned_verification_ids: ["VER-001"]
+    decision_ids: []
+    depends_on: ["TASK-001"]
+    contract_preconditions: ["DTO e erros HTTP estabilizados"]
+    scope:
+      allowed_paths: ["src/main/.../api/"]
+      avoid_paths: ["src/main/.../dto/"]
+      shared_risks: []
+    readiness_notes: "Pode executar em paralelo com TASK-002 após a TASK-001"
