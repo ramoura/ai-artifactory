@@ -26,6 +26,7 @@ Worktrees isolam o diretório de trabalho, mas **não resolvem automaticamente c
 - Fixer só corrige os achados aceitos dentro do escopo; rerun de testes e nova revisão.
 - Máximo de 3 rodadas de review/fix; conflito de instruções ou problema material persistente → `blocked` e decisão humana.
 - Validar cenários que atravessam tasks, inclusive contratos, migrações e regressão.
+- Suíte completa e e2e rodam **uma vez por onda**, depois de integrar as tasks aprovadas dela (não por task); falha da onda volta só para a task responsável, e a onda só fecha com a suíte verde.
 - Nenhuma aprovação de PR/merge em branch protegida sem política corporativa e, quando exigido, aprovação humana.
 
 ## Exemplo apenas ilustrativo

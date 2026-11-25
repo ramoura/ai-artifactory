@@ -53,7 +53,7 @@ Respeite `CLAUDE.md`, `AGENTS.md` e políticas locais quando existentes. O contr
 1. Divida por **entregas testáveis**, não por uma task por arquivo, camada ou componente.
 2. Uma task pode mapear vários `CMP-*`; um `CMP-*` pode demandar várias tasks. Não assumir relação 1:1.
 3. Prefira tasks independentes que entreguem comportamento observável; crie task de preparação de contrato/interface **somente** se outras tasks realmente precisarem de uma definição compartilhada para prosseguir.
-4. Para mudanças simples (`light`), prefira 1–3 tasks, sem criar tarefas cerimoniais. Para `standard`/`deep`, decomponha o suficiente para limitar contexto, risco e conflitos; sem cotas artificiais.
+4. **Tamanho:** para `standard`/`deep`, mire em **6 a 10 tasks por história, o mínimo possível** — cada task uma fatia vertical coerente de uma área (ex.: banco + serviço + rotas + testes da mesma capacidade), nunca uma task por componente ou camada; a task de lançamento, se houver, conta no total. Acima de 10 exige motivo registrado no `execution-plan.md`. Para mudanças simples (`light`), 1–3 tasks, sem tarefas cerimoniais. Política do projeto (`AGENTS.md`) prevalece se for mais específica.
 5. Evite dividir tarefas que obrigariam dois agentes a editar o mesmo arquivo compartilhado ou a modificar simultaneamente o mesmo schema/migração.
 6. Inclua migração, teste de contrato, documentação e rollout somente se forem necessários à entrega. Preservar a menor solução prevista no plano.
 
@@ -68,6 +68,7 @@ Para cada task, determine:
 - `requirement_ids`, `acceptance_criteria_ids`, `component_ids`, `verification_ids`: rastreabilidade aos IDs originais.
 - `owned_verification_ids` (v2): os `VER-*` que **esta** task deve escrever e fazer passar. Cada `VER-*` ativo pertence a exatamente uma task; as demais podem citá-lo em `verification_ids` como regressão.
 - `decision_ids` (v2): ADRs que a task precisa respeitar.
+- `area` (opcional): rótulo curto da área do código (módulo, bounded context ou tela), para o orquestrador encadear tasks afins no mesmo implementador. Não altera `depends_on` nem a matriz de concorrência.
 
 **Atenção:** `CMP-002 depends_on CMP-001` não obriga dependência entre todas as tasks desses componentes se o contrato entre eles já estiver estabilizado e os arquivos forem isolados. Quando não houver evidência suficiente, escolha dependência conservadora e explique.
 
@@ -80,7 +81,7 @@ Crie `TASK-001`, `TASK-002` etc. em ordem estável e sem reutilizar IDs para obj
 - Objetivo e resultado esperado, sem ambiguidades.
 - Origem e IDs de requisitos/aceite/componentes/verificações.
 - `depends_on` e condição objetiva para começar.
-- Contexto mínimo: caminhos reais, padrões encontrados no plano e links locais para o contrato.
+- **Mapa de leitura:** pontos de entrada (arquivo e função), padrão existente a copiar, testes a estender, o que não precisa ler e o que falta confirmar. Derive do **Mapa do código** em `plan.md` § 3 e confirme no repositório; caminho não verificado fica marcado como candidato. É por ele que o implementador começa a explorar, em vez de reler os artefatos da história.
 - Contratos a preservar e mudanças explicitamente fora do escopo.
 - Limites de edição e riscos de concorrência.
 - Critérios de aceite do **trabalho**, com os `AC-*` em Given/When/Then (inclusive bordas), e verificações executáveis/factíveis, sem inventar comando.
@@ -108,7 +109,8 @@ Em `execution-plan.md`, registre:
 - Matriz de concorrência: combinações seguras, conflitos de paths, contratos ou recursos.
 - Máximo de implementadores recomendado: **até 3**, salvo restrição ou capacidade menor do ambiente.
 - Preferência por worktrees isoladas, quando disponíveis e permitidas. Se não houver worktrees, somente edição paralela comprovadamente disjunta no mesmo workspace; se incerto, serializar.
-- Gates de execução: dependências `done` + artefatos integrados, contratos estáveis, testes pertinentes, review independente por task e, ao final, `/integration-validation` sobre o código integrado.
+- Gates de execução: dependências `done` + artefatos integrados, contratos estáveis, review independente por task e, ao final, `/integration-validation` sobre o código integrado.
+- **Testes por onda:** durante a task, só testes focais da área (o implementador e o revisor não rodam a suíte inteira nem e2e). Ao fim de cada onda, depois de integrar todas as tasks aprovadas dela, rodam **uma vez** a suíte completa e o e2e pertinente; se falharem, o orquestrador identifica a task responsável e devolve só a ela. A onda fecha (tasks `done`) com essa suíte verde. Registre no `execution-plan.md`, por onda, quais suítes completas rodam no fechamento.
 - Protocolo de handoff para `/implementation`, resultado por task, reviewer, fixer e integração, descrito na referência.
 
 A **task de revisão** em si não precisa estar no DAG se for um gate de aprovação do orquestrador. O registro não substitui revisão humana nas mudanças sensíveis.
