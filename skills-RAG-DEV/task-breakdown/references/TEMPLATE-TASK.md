@@ -23,10 +23,14 @@
 ## Objetivo e resultado observável
 [Definir o comportamento que esta task entrega.]
 
-## Contexto mínimo e evidências
-- Código/padrões existentes: [paths reais e razões]
+## Mapa de leitura
+Só caminhos verificados no repositório; o que for candidato fica marcado como tal. O implementador começa por aqui e localiza símbolos por busca direta.
+- Pontos de entrada: `caminho#função` — por que começar aqui
+- Padrão a copiar: `caminho` — implementação análoga que a task deve seguir
+- Testes a estender: `caminho` — suíte onde os `VER-*` próprios entram
 - Interfaces relevantes: [contratos de request/evento/schema]
-- Informações não verificadas: [o que precisa confirmar]
+- Não precisa ler: [diretórios ou arquivos fora do caminho da mudança]
+- Informações não verificadas: [o que o implementador precisa confirmar]
 
 ## Limites e isolamento
 - Paths permitidos: [...] (reais/candidatos)

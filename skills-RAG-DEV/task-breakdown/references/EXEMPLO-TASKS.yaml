@@ -17,6 +17,7 @@ tasks:
     revision: 1
     title: "Estabilizar contrato de despesa"
     kind: "contract"
+    area: "despesas"
     status: "pending"
     specification: "tasks/cadastro-despesas/tasks/TASK-001.md"
     requirement_ids: ["REQ-001"]
@@ -36,6 +37,7 @@ tasks:
     revision: 1
     title: "Persistência de despesas"
     kind: "implementation"
+    area: "despesas"
     status: "pending"
     specification: "tasks/cadastro-despesas/tasks/TASK-002.md"
     requirement_ids: ["REQ-001"]
@@ -55,6 +57,7 @@ tasks:
     revision: 1
     title: "Endpoint HTTP de despesas"
     kind: "implementation"
+    area: "despesas"
     status: "pending"
     specification: "tasks/cadastro-despesas/tasks/TASK-003.md"
     requirement_ids: ["REQ-001"]

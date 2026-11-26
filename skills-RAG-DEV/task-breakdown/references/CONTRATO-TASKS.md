@@ -34,6 +34,7 @@ tasks:
     revision: 1
     title: "Definir contrato de API"
     kind: "contract"   # contract | implementation | migration
+    area: "despesas-api"  # opcional: afinidade para despacho; não afeta o DAG
     status: "pending" # pending | ready | in_progress | in_review | needs_fix | integrated | done | blocked
     specification: "tasks/exemplo/tasks/TASK-001.md"
     requirement_ids: ["REQ-001"]
@@ -51,7 +52,7 @@ tasks:
     readiness_notes: "Contrato estabilizado no escopo da própria task"
 ```
 
-Substitua por dados reais, sem copiar placeholders.
+Substitua por dados reais, sem copiar placeholders. `area` é o único campo opcional: rótulo de afinidade para o orquestrador encadear tasks no mesmo implementador; ausente, cada task é despachada de forma independente.
 
 ## Estados e autoridade
 
@@ -78,10 +79,11 @@ Regra principal: uma sucessora só pode começar quando **todos** os IDs de `dep
 4. Todo `AC-*` ativo (critério e borda) tem ao menos uma task. Todo `VER-*` ativo aparece em `owned_verification_ids` de **exatamente uma** task (v2; em v1, ao menos uma responsável). Itens `withdrawn` são ignorados.
 5. Não declarar paths candidatos como confirmados. Um path desconhecido exige exploração controlada ou bloqueio antes de editar.
 6. Tasks independentes no DAG **não são automaticamente seguras em paralelo**. É preciso verificar edição concorrente, ambientes, schemas, migrações e contratos.
-7. O DAG não contém task de validação final. Os `VER-*` de integração, contrato e E2E pertencem às tasks de implementação; o gate final da história é a skill `/integration-validation`, acionada pelo orquestrador fora do DAG.
-8. Adaptações de escopo ou dependências que alterem comportamento do plano exigem revisão da Planning, não decisão silenciosa da Breakdown.
-9. Planejamento `blocked` não gera tasks executáveis.
-10. Escritas concorrentes em `tasks.yaml` são proibidas. O registro pertence ao orquestrador.
+7. `tasks.yaml` guarda só estado, DAG e escopo. Diário de coordenação, decisões e histórico de rodadas vão para `execution-plan.md` ou para a resposta ao usuário, nunca para o registro; cada entrada deve caber em poucas linhas.
+8. O DAG não contém task de validação final. Os `VER-*` de integração, contrato e E2E pertencem às tasks de implementação; o gate final da história é a skill `/integration-validation`, acionada pelo orquestrador fora do DAG.
+9. Adaptações de escopo ou dependências que alterem comportamento do plano exigem revisão da Planning, não decisão silenciosa da Breakdown.
+10. Planejamento `blocked` não gera tasks executáveis.
+11. Escritas concorrentes em `tasks.yaml` são proibidas. O registro pertence ao orquestrador.
 
 ## Handoff entre agentes
 

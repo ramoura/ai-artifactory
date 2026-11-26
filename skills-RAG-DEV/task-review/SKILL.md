@@ -34,8 +34,8 @@ Atue como **revisor independente** do agente que implementou a task. Sua funçã
 ### 1. Resolver o alvo e checar pré-condições
 
 1. Identifique **uma única** spec `TASK-###.md` no caminho informado; não assuma que a história toda está sendo revisada.
-2. Leia `tasks/<slug>/tasks.yaml` **somente leitura** e confirme `task_id`, `revision`, escopo, dependências e estágio autorizado pelo orquestrador (normalmente `in_review`). Estado desatualizado em worktree exige confirmação; nunca o atualize.
-3. Leia `tasks/<slug>/results/TASK-###/result.yaml` e `result.md`, a spec, `planning-contract.yaml`, `tests.md` e partes pertinentes de `plan.md` (interfaces e ADRs citados). Use `user-stories.md`/`prd.md` (regras `RN-*`) e `historia.md`, quando presentes, para confirmar a intenção de negócio.
+2. Leia em `tasks/<slug>/tasks.yaml` **somente a entrada da task** (localize pelo ID) e confirme `task_id`, `revision`, escopo, dependências e estágio autorizado pelo orquestrador (normalmente `in_review`). Estado desatualizado em worktree exige confirmação; nunca o atualize.
+3. Leia `tasks/<slug>/results/TASK-###/result.yaml` e `result.md` (inclusive o **Mapa para o próximo**) e a spec `TASK-###.md`, que já transcreve os `AC-*` e `VER-*` da task. De `planning-contract.yaml`, `tests.md` e `plan.md`, leia **apenas os itens citados na spec** (por ID ou seção); de `user-stories.md`/`prd.md`, apenas as `RN-*` e stories referenciadas; `historia.md` só se a intenção de negócio ficar ambígua. O mapa do implementador orienta a navegação; o que mudou se lê no diff (seção 2), nunca no relato.
 4. Verifique que o resultado se refere à **mesma revisão** e que o worker reportou `status: implemented` e `review_ready: true`. Se não, explique por que não é revisável e emita `blocked`.
 5. Identifique a **rodada correta**. Não sobrescreva rodada anterior; na dúvida sobre número ou limite, interrompa e peça ao coordenador. A política vigente limita a três rodadas de review/fix, salvo autorização adicional.
 6. Se houver contexto externo (`--context`), confirme que pertence à mesma história e vincule seus achados às tasks afetadas sem reescrever outros relatórios.

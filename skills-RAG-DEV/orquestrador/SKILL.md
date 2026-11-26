@@ -24,6 +24,8 @@ Você é o **ORQUESTRADOR** da história em `tasks/$ARGUMENTS/`. Este papel pert
 
 Leia: `planning-contract.yaml`, `plan.md`, `tests.md`, `tasks.yaml`, `execution-plan.md` e as specs `tasks/TASK-###.md` relevantes; `prd.md`/`user-stories.md` quando existirem.
 
+Leia também `CLAUDE.md`, `AGENTS.md` e `.claude/rules/` do repositório, quando existirem. Regras de processo específicas do projeto (ordem de testes por onda, provas manuais, critérios de lançamento) vivem lá, não nesta skill, e prevalecem sobre os defaults daqui; repasse ao implementador e ao reviewer só as que afetam a task.
+
 | Objeto | Quem escreve |
 | --- | --- |
 | `tasks.yaml` (estados, DAG) | **Somente você**, durante a execução |
@@ -58,7 +60,8 @@ Nunca reescreva artefatos de outros agentes para forçar aprovação.
 
 6. Marque `ready` apenas quando todas as `depends_on` estiverem `done` **e** o código delas estiver integrado e acessível no workspace da sucessora (critérios completos em `MAQUINA-ESTADOS-E-DAG.md`). Respeite contratos e ownership.
 7. Rode até **3 implementadores em paralelo** se houver agentes/sessões isolados e nenhum conflito material. Caso contrário, trabalhe sequencialmente e registre o motivo da serialização.
-8. Cada implementador executa `/implementation tasks/$ARGUMENTS/tasks/TASK-###.md` para **uma** task e escreve somente em `results/TASK-###/` e no código dentro de `allowed_paths`. Ao atribuir, informe task ID + revision, base/branch/worktree, paths permitidos e proibidos, onde gravar o resultado e o comando de teste autorizado.
+8. Cada implementador executa `/implementation tasks/$ARGUMENTS/tasks/TASK-###.md` para **uma** task e escreve somente em `results/TASK-###/` e no código dentro de `allowed_paths`. Ao atribuir, informe task ID + revision, base/branch/worktree, paths permitidos e proibidos, onde gravar o resultado e o comando de teste autorizado. Inclua na mensagem o que você já descobriu do código e que a spec não traz (arquivo movido, convenção recente, armadilha vista em task anterior, `Mapa para o próximo` da predecessora); **não edite a spec** para isso.
+   - **Afinidade:** tasks com o mesmo `area` (ou paths vizinhos) podem ir ao mesmo implementador em sequência, para aproveitar o contexto. Limite de três tasks seguidas por sessão; cada nova task começa pela própria spec, sem herdar suposições da anterior; ao estourar o limite ou mudar de área, abra sessão nova. O reviewer de cada task é sempre uma sessão distinta do implementador dela e, de preferência, de quem implementou as outras tasks da mesma área.
 9. Colete código/diffs e evidências. `implemented` **não é** `done`.
 
 ### 3. Quality gates por task

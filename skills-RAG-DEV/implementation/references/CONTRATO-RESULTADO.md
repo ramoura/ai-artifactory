@@ -69,6 +69,11 @@ next_step: "review"          # review | decision | retry
 | --- | --- | --- |
 | ... | ... | sim |
 
+## Mapa para o próximo
+- Pontos tocados: `caminho#função` — o que mudou, em uma linha
+- Não quebrar: [invariante, contrato ou teste que depende disto]
+- Onde continuar: [arquivo ou teste que a task sucessora vai estender, se souber]
+
 ## Aceite e validação
 | ID | Resultado | Evidência observável |
 | --- | --- | --- |
@@ -98,6 +103,7 @@ Não reescreva o histórico para parecer que uma rodada antiga foi aprovada. Ao 
 - `status: blocked` implica `review_ready: false`, `blockers` com motivo objetivo e `next_step: decision` ou `retry`.
 - `status: failed` descreve falha técnica ou verificação crítica não resolvida; não declarar sucesso.
 - Verificações não executadas não podem ser declaradas aprovadas.
+- `## Mapa para o próximo` é orientação de navegação: o reviewer parte do diff real, e a task sucessora confirma cada caminho antes de editar.
 - `artifacts` lista só arquivos que existem no caminho indicado. Um `VER-*` e2e de interface `passed` sem as screenshots previstas no contrato é inconsistente: corrija ou marque `partial` no AC correspondente.
 - `review_findings` podem estar vazios na primeira implementação; no modo fix incluem IDs reais do review, por exemplo:
 

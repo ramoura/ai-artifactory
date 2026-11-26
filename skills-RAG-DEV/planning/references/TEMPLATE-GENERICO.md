@@ -27,6 +27,13 @@
 
 Para componentes/dependências novos, inclua busca por reuso, resultado e justificativa da escolha.
 
+**Mapa do código da área afetada** (alimenta o `Mapa de leitura` de cada task):
+- Pontos de entrada: `caminho#função` — papel no fluxo
+- Fluxo: [módulo A → módulo B → persistência/integração]
+- Padrões a copiar: `caminho` — por quê
+- Testes existentes da área: `caminho` — o que cobrem
+- Mapa do repositório (se existir): `docs/...` — atualizado nesta área / não existe
+
 ## 4. Requisitos e critérios de aceite
 **Com PRD:** não repita as stories. Indexe `user-stories.md`, inclusive os `REQ-*`/`AC-*` **técnicos** que esta planning acrescentou na seção `## AC técnicos (planning)` daquele arquivo (ex.: compatibilidade, migração). O texto Given/When/Then vive lá; aqui só a tabela de índice.
 
@@ -120,7 +127,7 @@ Somente a **estratégia**; todo caso concreto vive em `tests.md`:
 Use somente os cinco blocos abaixo; tabelas são opcionais. Eles substituem as onze seções acima. Omita tópicos inaplicáveis sem criar listas de `não aplicável`. Se o risco exigir análise maior, eleve a complexidade.
 
 1. **Identificação e escopo:** origem, slug, tipo, stack, `light` com justificativa, status, objetivo e não objetivos.
-2. **Evidências e solução:** comportamento atual/esperado, causa provável e como confirmar (bugs), arquivos/padrões relevantes, busca por reuso se houver componente novo e `CMP-*` com responsabilidades, requisitos associados e dependências reais.
+2. **Evidências e solução:** comportamento atual/esperado, causa provável e como confirmar (bugs), arquivos/padrões relevantes (pontos de entrada e testes existentes da área), busca por reuso se houver componente novo e `CMP-*` com responsabilidades, requisitos associados e dependências reais.
 3. **Aceite e verificação:** requisitos `REQ-*` e aceites `AC-*` em Given/When/Then (com as bordas relevantes). Os casos `VER-*` vão para o `tests.md` compacto (regressão, feliz, erro afetado); aqui apenas o resumo da cobertura.
 4. **Riscos e pendências:** avaliação de segurança do que mudou (ou ausência de impacto com motivo), premissas com evidência e confirmação, blockers e efeitos em contratos/capacidade/operação apenas quando relevantes.
 5. **Limpeza e entrega:** remoções ou `nenhuma remoção`, caminho do contrato e condição para decompor.

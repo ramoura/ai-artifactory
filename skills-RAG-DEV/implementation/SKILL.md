@@ -15,8 +15,8 @@ Você é um **implementador/fixer**, não um planejador nem um orquestrador. Tra
 
 **Leituras obrigatórias:**
 - `tasks/<slug>/tasks/TASK-###.md` — objetivo, escopo, aceite e verificações.
-- `tasks/<slug>/tasks.yaml` — revisão, dependências e estado; somente leitura.
-- `tasks/<slug>/planning-contract.yaml` (schema v2 ou v1) e trechos pertinentes de `plan.md`, incluindo as interfaces centrais e os ADRs citados na task.
+- `tasks/<slug>/tasks.yaml` — **somente a entrada da própria task** (localize pelo ID): revisão, dependências, estado e escopo. Não leia o arquivo inteiro.
+- `tasks/<slug>/planning-contract.yaml` (schema v2 ou v1) — **somente os itens que a spec cita** (`REQ-*`, `AC-*`, `CMP-*`, `VER-*`, `ADR-*`), localizados por ID. `plan.md` só nas seções que a spec aponta (interfaces centrais e ADRs). A spec já transcreve os AC e VER da task; o contrato serve para tirar dúvida, não para releitura integral.
 - `tasks/<slug>/tests.md`: os casos `VER-*` próprios da task (já transcritos na spec; consulte o original em caso de dúvida).
 - `AGENTS.md`, `CLAUDE.md`, instruções e convenções do módulo quando existirem.
 - No modo fix: arquivo do reviewer fornecido no argumento.
@@ -50,7 +50,7 @@ Você é um **implementador/fixer**, não um planejador nem um orquestrador. Tra
 ### 2. Confirmar entendimento antes de editar
 
 - Resuma mentalmente objetivo, comportamentos preservados, `REQ-*`, `AC-*`, `VER-*`, contratos, limites e riscos.
-- Leia somente o contexto necessário do repositório, incluindo implementação análoga e testes existentes. Não presuma tecnologias pelo nome da história.
+- Comece a exploração pelo **Mapa de leitura** da spec: abra os pontos de entrada, o padrão a copiar e os testes a estender ali indicados, localizando símbolos por busca direta (nome de função, classe, rota), não arquivo por arquivo. Amplie só quando o mapa for insuficiente ou se revelar errado, e registre a divergência em `result.md`. Não presuma tecnologias pelo nome da história.
 - Identifique a stack dos arquivos que a task toca (seção **Detecção** de `references/stacks/README.md`) e carregue o `references/stacks/<stack>.md` correspondente. Aplique os **defaults** só onde o repositório não decide e nunca para refatorar código existente; as **proibições** valem para todo código novo. Registre em `result.md` a stack identificada e qualquer divergência consciente.
 - Para `bug`, valide a reprodução/causa com evidências disponíveis e proponha teste de regressão sempre que viável.
 - Se houver divergência material entre task, plano e código, não alterar requisitos ou arquitetura por iniciativa própria. Registre o bloqueio e solicite decisão do orquestrador/planning.
@@ -79,7 +79,7 @@ Você é um **implementador/fixer**, não um planejador nem um orquestrador. Tra
 
 ### 5. Produzir o handoff para revisão
 
-Registre `result.yaml` e `result.md` no diretório exclusivo da task. Use `references/CONTRATO-RESULTADO.md` como formato obrigatório.
+Registre `result.yaml` e `result.md` no diretório exclusivo da task. Use `references/CONTRATO-RESULTADO.md` como formato obrigatório. Inclua em `result.md` a seção **Mapa para o próximo**: arquivos e funções tocados e as regras ou invariantes que o código seguinte não pode quebrar. Ela orienta o reviewer e o implementador da task sucessora; não substitui o diff.
 
 Inclua:
 - ID e `revision` efetiva, modo `implement`/`fix`, status do worker: `implemented`, `blocked` ou `failed`.

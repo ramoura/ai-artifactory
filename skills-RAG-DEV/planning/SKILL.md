@@ -90,8 +90,9 @@ Use um subagente de exploração quando disponível, para não poluir o contexto
 3. Consulte código e testes **análogos à mudança** e registre exemplos concretos (arquivo + papel). Antes de propor componente ou dependência nova, busque equivalentes e registre onde buscou, o que encontrou e por que vai reutilizar, adaptar ou criar.
 4. Identifique fluxo atual, contratos (HTTP, eventos, schemas), persistência, auth, observabilidade e configuração **quando aplicáveis**.
 5. Liste arquivos e módulos candidatos, separando `confirmed` de `probable`. Não prometa paths que ainda não existem.
-6. Não varra o repositório inteiro só para cumprir quota.
-7. Sem acesso ao código, planeje com as fontes disponíveis e sinalize o risco.
+6. Registre em `plan.md` § 3 o **Mapa do código** da área afetada: pontos de entrada, fluxo entre módulos, padrões a copiar e testes existentes, com caminhos verificados. A `task-breakdown` deriva dele o mapa de leitura de cada task. Se o repositório mantém um mapa de código (por exemplo em `docs/`), atualize-o nessa área em vez de duplicar; caso contrário, não crie arquivo fora de `tasks/<slug>/`.
+7. Não varra o repositório inteiro só para cumprir quota.
+8. Sem acesso ao código, planeje com as fontes disponíveis e sinalize o risco.
 
 ### 4. Pesquisa externa — condicional
 
