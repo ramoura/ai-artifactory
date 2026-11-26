@@ -56,6 +56,9 @@ Respeite `CLAUDE.md`, `AGENTS.md` e políticas locais quando existentes. O contr
 4. **Tamanho:** para `standard`/`deep`, mire em **6 a 10 tasks por história, o mínimo possível** — cada task uma fatia vertical coerente de uma área (ex.: banco + serviço + rotas + testes da mesma capacidade), nunca uma task por componente ou camada; a task de lançamento, se houver, conta no total. Acima de 10 exige motivo registrado no `execution-plan.md`. Para mudanças simples (`light`), 1–3 tasks, sem tarefas cerimoniais. Política do projeto (`AGENTS.md`) prevalece se for mais específica.
 5. Evite dividir tarefas que obrigariam dois agentes a editar o mesmo arquivo compartilhado ou a modificar simultaneamente o mesmo schema/migração.
 6. Inclua migração, teste de contrato, documentação e rollout somente se forem necessários à entrega. Preservar a menor solução prevista no plano.
+7. **Lançamento:** se o plano tem migração/esquema persistido ou muda a operação (instalação, atualização, Compose, backup) de um produto com versões instaláveis, crie uma **task de lançamento** na última onda: versão, notas de atualização, prova de atualização com volta automática e de restauração de cópia anterior, mapa do código. A prova roda sobre o código final. Se o `AGENTS.md` exigir, ela é obrigatória mesmo que o plano não a cite — registre a lacuna do plano.
+8. **Listas fixas:** se o projeto oferece um inventário de listas fixas (script ou checklist citado no `AGENTS.md`), rode-o antes de fechar o escopo e transcreva a saída relevante em cada task afetada, com os arquivos no `allowed_paths`.
+9. **Protocolo de execução do projeto** (ramos, commits, integração), quando existir, prevalece sobre os defaults das skills; cite-o no handoff e em cada task.
 
 ### 3. Projetar o DAG de dependências
 

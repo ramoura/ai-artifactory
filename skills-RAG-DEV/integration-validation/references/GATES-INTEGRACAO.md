@@ -42,4 +42,8 @@ integration-validation: VAL-### (evidência + TASK-* possíveis)
 - Um único escritor de `tasks.yaml` e outro único escritor dos relatórios globais; workers não disputam arquivos de coordenação.
 - O DAG não contém task de validação final; esta skill é o gate. Exija que todas as tasks relevantes estejam `done` e integradas antes de aceitar a história.
 - Se mudança de merge não revisada, review reprovado, task pendente, baseline ausente ou teste essencial impossível: não emitir `accepted`.
+- **Entrega sem commit por task** (tudo solto no workspace, ou baseline só por cópia/snapshot local) não é integração verificável: registre `VAL-*` e não emita `accepted`, salvo se o protocolo do projeto declarar outro mecanismo.
+- **Mudança de banco ou de operação sem task e prova de lançamento**, quando o `AGENTS.md` exige (versão, notas de atualização, atualização com volta automática, restauração de cópia anterior): `VAL-*` de severidade média, sem `accepted`.
+- **Artefatos internos de ferramenta** (cópias do repositório, baselines inteiras, logs gigantes) versionados ou fora do `.gitignore`: `VAL-*`.
+- Antes de decidir, percorra os checklists por papel do `AGENTS.md`, quando existirem, e registre no relatório os itens não atendidos.
 - Independência e aprovação humana permanecem necessárias em fluxos de alto risco conforme políticas.

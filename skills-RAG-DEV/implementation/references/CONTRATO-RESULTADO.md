@@ -23,7 +23,7 @@ source_spec: "tasks/cadastro-despesas/tasks/TASK-003.md"
 workspace:
   isolation: "worktree"       # worktree | shared | unknown
   branch: null                # branch real ou null; não inventar
-  commit: null                # hash real ou null; não gerar commit por padrão
+  commit: null                # hash real ou null; commitar só se o protocolo do projeto mandar (AGENTS.md); nunca inventar
 changes:
   - path: "src/main/.../api/ExpenseHandler.java"
     purpose: "Expor endpoint com validação"

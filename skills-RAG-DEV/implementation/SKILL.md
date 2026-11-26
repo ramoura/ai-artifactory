@@ -18,7 +18,7 @@ Você é um **implementador/fixer**, não um planejador nem um orquestrador. Tra
 - `tasks/<slug>/tasks.yaml` — **somente a entrada da própria task** (localize pelo ID): revisão, dependências, estado e escopo. Não leia o arquivo inteiro.
 - `tasks/<slug>/planning-contract.yaml` (schema v2 ou v1) — **somente os itens que a spec cita** (`REQ-*`, `AC-*`, `CMP-*`, `VER-*`, `ADR-*`), localizados por ID. `plan.md` só nas seções que a spec aponta (interfaces centrais e ADRs). A spec já transcreve os AC e VER da task; o contrato serve para tirar dúvida, não para releitura integral.
 - `tasks/<slug>/tests.md`: os casos `VER-*` próprios da task (já transcritos na spec; consulte o original em caso de dúvida).
-- `AGENTS.md`, `CLAUDE.md`, instruções e convenções do módulo quando existirem.
+- `AGENTS.md`, `CLAUDE.md`, instruções e convenções do módulo quando existirem. O protocolo de execução do projeto (ramo, commit na entrega, baseline) prevalece sobre os defaults desta skill.
 - No modo fix: arquivo do reviewer fornecido no argumento.
 
 **Saídas obrigatórias da execução:**
